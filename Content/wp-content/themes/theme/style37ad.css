@@ -1,0 +1,57 @@
+/*
+Theme Name: Gongcha Themes
+Theme URI: http://nhienphan.com
+Author: Nhienphan
+Author URI: 0902 1818 52
+Description: phanvannhien@gmail.com
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: 
+Text Domain: nhienphan
+This theme, like WordPress, is licensed under the GPL.
+*/
+.blog_copyright{
+	display:block;
+	position:relative;
+	z-index:10;
+}
+.blog_design{
+	display:block;
+	position:relative;
+	z-index:12;
+}
+.blog_design_hide{
+	display:block;
+	position: absolute;
+    bottom: 12px;
+	bottom:-7px;
+	left:0px;
+	right:0px;
+	text-align:center;
+}
+.postion_relead_hide{
+	overflow:hidden;
+}
+a.copydesign,.copydesign{
+	color:#6d625f;
+	text-decoration: none;
+}
+
+.single-post .single-p-meta .more{
+	margin-left: 20px;
+}
+.post-item .post-meta .post-title > a{
+	margin-left: 10px;
+}
+
+.news-body .news-body-data {
+    margin-bottom: 40px;
+    display: flex;
+    /* display: flex; */
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch!important;
+    -ms-flex-align: stretch!important;
+    align-items: stretch!important;
+}
