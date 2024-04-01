@@ -11,9 +11,6 @@
             <div class="item active">
               <img src="./Content/wp-content/uploads/2023/11/cover-web.ginger4-scaled.jpg" alt="Slide 1" class="img-responsive">
             </div>
-            <div class="item">
-              <img src="./Content/wp-content/uploads/2023/10/cover-web-grape-scaled.jpg" alt="Slide 2" class="img-responsive">
-            </div>
           </div>
           <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

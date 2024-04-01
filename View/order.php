@@ -1,3 +1,19 @@
+<?php
+function sub_Total() {
+    // Initialize the total variable
+    $total = 0;
+    // Loop through each item in the bill
+    $mshd = $_SESSION['mshd'];
+    $hd = new hoadon();
+    $sp = $hd->getHangHoaHD($mshd);
+    while ($set = $sp->fetch()) {
+        $subtotal = $set['dongia'] * $set['soluongmua'];
+        $total += $subtotal;
+    }
+    echo number_format($total);
+}
+?>
+
 <div class="table-responsive">
   <?php
   if (!isset($_SESSION['makh'])) :
@@ -85,10 +101,7 @@
             </td>
             <td style="float: right;">
               <b>
-                <?php
-                $gh = new giohang();
-                echo $gh->sub_Total();
-                ?>
+                <?php sub_Total(); ?>
                 <sup><u>đ</u></sup></b>
             </td>
           </tr>

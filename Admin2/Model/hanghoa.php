@@ -4,16 +4,15 @@ class hanghoa
     function getHangHoa()
     {
         $db = new connect();
-        $select = "select mahh, tenhh, maloai, ngaylap from hanghoa";
+        $select = "select mahh, tenhh, ngaylap from hanghoa";
         $result = $db->getList($select);
         return $result;
     }
-    function insertHangHoa($tenhh, $maloai, $dacbiet, $slx, $ngaylap, $mota)
+    function insertHangHoa($tenhh, $slx, $ngaylap, $mota)
     {
         $db = new connect();
-        $query = "insert into hanghoa(mahh,tenhh,maloai,dacbiet,soluotxem,ngaylap,mota) 
-        values (Null, '$tenhh', $maloai, $dacbiet, $slx, '$ngaylap', '$mota')";
-        echo $query;
+        $query = "insert into hanghoa(mahh,tenhh,soluotxem,ngaylap,mota) 
+        values (Null, '$tenhh', $slx, '$ngaylap', '$mota')";
         $result = $db->exec($query);
         return $result;
     }
@@ -34,11 +33,18 @@ class hanghoa
         $result = $db->getInstance($select);
         return $result;
     }
-    function updateHangHoa($mahh, $tenhh, $maloai, $dacbiet, $slx, $ngaylap, $mota)
+    function getHangHoaCT_ID($id)
+    {
+        $db = new connect();
+        $select = "select a.idhanghoa, a.idloai, a.dongia, a.hinh, a.giamgia, b.tenhh from cthanghoa a, hanghoa b where a.idhanghoa=$id and idhanghoa=mahh";
+        $result = $db->getInstance($select);
+        return $result;
+    }
+    function updateHangHoa($mahh, $tenhh, $slx, $ngaylap, $mota)
     {
         $db = new connect();
         $query = "update hanghoa 
-        set tenhh='$tenhh',maloai=$maloai,dacbiet=$dacbiet,soluotxem=$slx,ngaylap='$ngaylap',mota='$mota' 
+        set tenhh='$tenhh',soluotxem=$slx,ngaylap='$ngaylap',mota='$mota' 
         where mahh=$mahh";
 
         $result = $db->exec($query);
@@ -48,23 +54,34 @@ class hanghoa
     function deleteHangHoa($id)
     {
         $db = new connect();
-        $query = "DELETE FROM hanghoa WHERE mahh = $id";
+        $query = "DELETE cthanghoa, hanghoa
+        FROM cthanghoa
+        JOIN hanghoa ON cthanghoa.idhanghoa = hanghoa.mahh
+        WHERE cthanghoa.idhanghoa = $id AND hanghoa.mahh = $id";
         $result = $db->exec($query);
         return $result;
     }
 
     function getSize()
     {
-        $db=new connect();
-        $select="select * from size";
-        $result=$db->getList($select);
-        return $result; 
+        $db = new connect();
+        $select = "select * from size";
+        $result = $db->getList($select);
+        return $result;
     }
     function getTopping()
     {
-        $db=new connect();
-        $select="select * from topping";
-        $result=$db->getList($select);
+        $db = new connect();
+        $select = "select * from topping";
+        $result = $db->getList($select);
+        return $result;
+    }
+
+    function getHangHoaAllPageA($start, $limit)
+    {
+        $db = new connect();
+        $select = "select mahh, tenhh, ngaylap from hanghoa ORDER by mahh limit " . $start . "," . $limit;
+        $result = $db->getList($select);
         return $result;
     }
 }

@@ -60,7 +60,6 @@ spl_autoload_register();
         // include 'Controller/'.$ctrl.'.php';
 
         //end controller
-
         ?>
     </div>
     </div>

@@ -1,3 +1,17 @@
+<?php
+//b1: xac dinh co bao nhieu san pham, select count(*)
+$hh = new hanghoa();
+$count = $hh->getHangHoa()->rowCount(); //14
+//b2: limit
+$limit = 20;
+//b3: tinh ra co bao nhieu trang
+$trang = new page();
+$page = $trang->findPage($count, $limit); //2 trang
+//b4: tinh ra start
+$start = $trang->findStart($limit); // 8
+//b5: tao bien chua trang hien tai
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1
+?>
 <div class="ui-theme-settings">
   <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
     <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
@@ -240,32 +254,6 @@
       <div class="app-sidebar__inner">
         <ul class="vertical-nav-menu">
           <li class="app-sidebar__heading">Menu</li>
-          <li>
-            <a href="#">
-              <i class="metismenu-icon pe-7s-rocket" style="font-size: 2em"></i>Dashboards
-              <i class="metismenu-state-icon has-arrow caret-left"></i>
-            </a>
-            <ul>
-              <li>
-                <a href="index.html">
-                  <i class="metismenu-icon"></i>Analytics
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="metismenu-icon"></i> Minimal
-                  <i class="metismenu-state-icon has-arrow caret-left"></i>
-                </a>
-                <ul>
-                  <li>
-                    <a href="dashboards-minimal-1.html">
-                      <i class="metismenu-icon"></i>Variation 1
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
 
           <li class="mm-active" style="height: 3em">
             <a href="#">
@@ -273,6 +261,11 @@
               <i class="metismenu-state-icon has-arrow  caret-left"></i>
             </a>
             <ul>
+            <li>
+                <a href="index.php?action=hanghoa&act=dashboard">
+                  <i class="metismenu-icon"> </i>Dashboard
+                </a>
+              </li>
               <li>
                 <a href="index.php?action=hanghoa" class="mm-active">
                   <i class="metismenu-icon"> </i>Data Tables
@@ -284,7 +277,7 @@
                 </a>
               </li>
               <li>
-                <a href="index.php?action=cthanghoa">
+                <a href="index.php?action=cthanghoa&act=cthanghoa_all">
                   <i class="metismenu-icon"> </i>Chi tiết sản phẩm
                 </a>
               </li>
@@ -294,8 +287,13 @@
                 </a>
               </li>
               <li>
-                <a href="index.php?action=loai" class="mm-active">
+                <a href="index.php?action=loai">
                   <i class="metismenu-icon"> </i>Thêm loại
+                </a>
+              </li>
+              <li>
+                <a href="index.php?action=cthanghoa&act=addtopping">
+                  <i class="metismenu-icon"> </i>Thêm Topping cho sản phẩm
                 </a>
               </li>
             </ul>
@@ -344,7 +342,6 @@
                   <tr>
                     <th>Mã hàng</th>
                     <th>Tên hàng</th>
-                    <th>Mã loại</th>
                     <th>Ngày lập</th>
                     <th>Cập Nhật</th>
                     <th>Xóa</th>
@@ -353,22 +350,40 @@
                 <tbody>
                   <?php
                   $hh = new hanghoa();
-                  $result = $hh->getHangHoa();
+                  $result = $hh->getHangHoaAllPageA($start, $limit);
                   while ($set = $result->fetch()) :
                   ?>
                     <tr>
                       <td><?php echo $set['mahh']; ?></td>
                       <td><?php echo $set['tenhh']; ?></td>
-                      <td><?php echo $set['maloai']; ?></td>
                       <td><?php echo $set['ngaylap']; ?></td>
                       <td><a href="index.php?action=hanghoa&act=update_hanghoa&id=<?php echo $set['mahh']; ?>">Cập nhật</a></td>
-                      <td><a href="index.php?action=hanghoa&act=del_hanghang&id=<?php echo $set['mahh']; ?>">Xóa</a></td>
+                      <td><a href="index.php?action=hanghoa&act=del_hanghoa&id=<?php echo $set['mahh']; ?>">Xóa</a></td>
                     </tr>
                 </tbody>
               <?php
                   endwhile;
               ?>
               </table>
+            </div>
+            <div class="row">
+              <div class="col-md-6 div col-md-offset-3 text-center">
+                <ul class="pagination">
+                  <?php
+                  if ($current_page > 1 && $page > 1) {
+                    echo '<li><a href="/Duan/Admin2/index.php?action=hanghoa&page=' . ($current_page - 1) . '">Prev</a></li>';
+                  }
+
+                  for ($i = 1; $i <= $page; $i++) : ?>
+                    <li><a href="/Duan/Admin2/index.php?action=hanghoa&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                  <?php endfor;
+
+                  if ($current_page < $page && $page > 1) {
+                    echo '<li><a href="/Duan/Admin2/index.php?action=hanghoa&page=' . ($current_page + 1) . '">Next</a></li>';
+                  }
+                  ?>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
