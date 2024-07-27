@@ -5,4 +5,5 @@ Sử Dụng mô hình MVC
   + Thêm xóa sửa sp
   + Thông tin về order
   + Thông tin về sp, user
+
 Có các chức năng cơ bản của người dùng 
