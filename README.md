@@ -1,6 +1,8 @@
 
 Xây đựng trang web bán hàng
+
 Sử Dụng mô hình MVC
+
  Các chức năng admin:
   + Thêm xóa sửa sp
   + Thông tin về order
